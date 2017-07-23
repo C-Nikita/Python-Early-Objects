@@ -24,6 +24,19 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[oneside,12pt]{memoir} % Font size
+\usepackage{adjustbox}
+\usepackage{fancyvrb}
+\newcommand{\bbfamily}{\fontencoding{U}\fontfamily{bbold}\selectfont}
+\DeclareMathAlphabet{\mathbbold}{U}{bbold}{m}{n}
+
+\newenvironment{myverb}{%
+ \VerbatimEnvironment
+ \begin{adjustbox}{max width=\linewidth}
+ \begin{BVerbatim}
+  }{
+  \end{BVerbatim}
+ \end{adjustbox}
+}
 
 \input{structure.tex} % Include the file that specifies the document structure and layout
 
@@ -107,11 +120,19 @@ Throughout my years of working with technology––from hardware, Information T
 3. To (hopefully) impart some of the author's love for programming and abstract mathematics. \\
 \\
 
+
+
 \chapter*{A brief note on Python} % Introduction chapter suppressed from the table of contents
 
-	It should be noted that Python is an immensely high level language and actually has nothing to do with reptiles. But is most definitely named for the BBC series Monty Python's Flying Circus. \\
+	It should be noted that Python is an immensely high level language and actually has nothing to do with reptiles. But the creator, \emph{Guido van Rossum}, most definitely named it for the BBC series \emph{Monty Python's Flying Circus}. \\
 	
-	This text is also focusing on Python 3.6; I will be covering the proper syntax for 3.6. Depending on feedback, I may include a section that reviews the differences between the versions. 
+	This text is also focusing on Python 3.6; I will be covering the proper syntax for 3.6. Depending on feedback, I may include a section that reviews the differences between Python3 (3.x) and Python (2.x). 
+	
+\section*{Thanks}
+
+Here, I would like to thank friends and instructors I have had over the years that have added to my education and grounding as both a Computer Scientist, Mathematician, and programmer.\\
+
+Marcia Elliott, Kristian Lodden, Michael Clingan-Siverly, Sikder Rezwanul Huq, Andy (I need to find your last name!), Dr. Michelle Ruse, Dr. Douglas Jones, Constantine Craft, Joe Hetrick, Dr. Geb Thomas, Professor Joseph Struss, Dr. Alberto Maria Segre, Dr. Aaron Stump, Dr. Mo Liang, Dr. Denise Szecsei, Dr. Sriram Pemmaraju, Dr. Sukumar Ghosh, Dr. Inez Curto, 
 
 
 
@@ -119,6 +140,14 @@ Throughout my years of working with technology––from hardware, Information T
 %----------------------------------------------------------------------------------------
 %	BOOK PART
 %----------------------------------------------------------------------------------------
+\chapter*{A Rose by any other Name}
+\section{A (some what) brief Introduction to Set Theory}
+\label{set_theory}
+\section{An (Informal) introduction to Formal Logic}
+\label{formal_logic}
+
+\section{A (very) Brief History of Proof}
+\label{proof}
 
 \part{%
 The Fairy Tales	\\
@@ -135,16 +164,18 @@ Little Red Riding Hood \\
 
 % Python Chevrons:
 % {>}{>}{>} = >>>
+\section{(Parse)l Tongue}
+\label{parsel_tongue}
 
 As tradition dictates, the very first program we should learn, is "Hello, World!"
 
 Given Python's console interface:\\
 
-{>}{>}{>} print("Hello, World!")\\
+{>}{>}{>} print('Hello, World!')\\
 
 Should yield:\\
 Hello, World!\\
-To screen, unless something horrible has happened. 
+To screen, unless something horrible has happened.\\
 
 
 Now, what exactly did we just do? \\
@@ -155,7 +186,7 @@ Execute:\\
 {>}{>}{>} print("4")\\
 {>}{>}{>} print(4)\\
 
-So, are the 4's different? Luckily for us, Python has a nifty tool to let us know. \\
+So, are the 4's different? Luckily for us, Python has a nifty tool to let us know. Go ahead and give these a try: \\
 {>}{>}{>} type("4")\\
 {>}{>}{>} type(4)\\
 
@@ -174,13 +205,7 @@ Useful for discrete mathematics and counting things that don't or should not hav
 Type Int in Python:\\
 Is much more flexible with its peer datatypes in Python than some of the other mainstream programming languages. Python has no quarrel with operations between ints, floats and numeric conversion between operations. \\
 
-A few words on Discrete:\\
-Putting a definition to Discrete numbers is important for the coming discussion and is a central theme to the logic behind the friendly integer. \\
 
-If some one where to ask a normal humanbeing how many numbers are between 1 and 5, they would likely say three, '2,3,4'. Where as a Mathematician or Engineer would be wont to say infinity. Both are simultaneously true. Discrete refers to 'countable' events, items, positions, whatever else you can conceive. From the perspective of Discrete counting, there are only three numbers between 1 and 5. \\
-On the other hand, continuous numbers, are just that––continuous. Between 1 and 2, there is 1.5, or 1 and 1/2. There is also 1.25, 1.75, 1.99, 1.0000000000000001, and far too many more for me to reasonably list in linear time. These numbers are continuous and belong to the world of fractions, both positive and negative infinities. \\
-
-The int is a good data type to start with regarding numbers, a numeric. Good, because it is simple and doesn't quite jump into the extra baggage associated with floats, doubles, and the like (more on them later).\\
 
 \subsection{Numeric Operations} % (fold)
 \label{sub:numeric_operations}
@@ -189,45 +214,333 @@ The int is a good data type to start with regarding numbers, a numeric. Good, be
 %Numeric Operations:\\
 
 Let's us see a few examples of what can be done, hopefully without having to return any parrots. \\
-The following examples are used in Terminal, console, however REPL works for you. \\
+The following examples are used in Terminal, console, however REPL works for you. I will denote lines of exposition with an octothorpe(\#).\\
 
 {>}{>}{>} 3 + 2\\
 6\\
 {>}{>}{>} 2*42-9\\
 75\\
-\# As you can see, Python 3.6 follows the formal Order of Operations.\\
-\# Parentheses\\
-\# Exponent\\
-\# Multiplication\\
-\# Division\\
-\# Addition\\
-\# Subtraction\\
+{>}{>}{>} (30-15)*2/4\\
+7.5\\
 
-\#The questionable mnemonic device that many Midwesterners learned growing up was:\\
-\#'Please Excuse My Dear Aunt Sally'\\
-\#One often wonders what dear Sally did to reach such notoriety, mayhaps she was an avid Spam enthusiast?\\
+\# Here, we received a fractional answer. Despite the default numeric type for Python being int. In Python 2.x, the answer would have been 7 ala true integer/floor division.\\
+\# In Python 3.x, classic division ex: 4/2 will \textbf{\emph{always}} return a \emph{float}.\\
+{>}{>}{>} 4/2\\
+2.0\\
+
+\# In Python 3.x, we needs must specify floor division.\\
+{>}{>}{>} (30-15)*2//4\\
+7\\
+
+
+As you can see, Python 3.6 follows the formal Order of Operations.\\
+Parentheses\\
+Exponent\\
+Multiplication\\
+Division\\
+Addition\\
+Subtraction\\
+
+The questionable mnemonic device that many Midwesterners learned growing up was:\\
+
+'Please Excuse My Dear Aunt Sally'\\
+
+One often wonders what dear Sally did to reach such notoriety, mayhaps she was an avid Spam enthusiast?\\
 {>}{>}{>}124/(2*42-9)\\
 1.6533333333\\
+
 \# In Python 2.x, this performs integer division, resulting in 1 and not the floating point witnessed above. This is also called a comment, when lines of text follow an octothorpe. \\
 
 
 
 \subsection {A Note on Comments}
-\label{sub:a_note_on_comments}
+\label{comments}
 
 %A Note on Comments:\\
 \# Are very important to your life and sanity as a programmer. And those that will work with you and work on code you write. Their importance can not be over stated.\\
+
 But that doesn't quite describe 'what' a comment is. \\
 \# A succinct version of the "Hello, World!" application.\\
+
 print('Hello, World!') \\
-The comment above did exactly what comments are supposed to do. It succinctly described the operation of the program.\\
+
+
+The comment above did exactly what comments are supposed to do. It succinctly described the operation of the program. In Python, the octothorpe (\#) denotes a the beginning of a \emph{single line comment}.\\
+
+\subsubsection{Multiline Comments}
+\label{sub:sub:multiline_comments}
+
+In order to perform \emph{multi-line commenting}, a different trick must be used. \emph{Triple quoted strings} is the closest approximation. That being said, these are originally used as \emph{Docstrings } (the first line in a function, class, or module). Whenever \emph{Triple quoted strings} are used outside of the first line in a function, class, or module, they are ignored, making this a feasible alternative to Octothorping every line you wish to comment. Guido van Rossum stated this as a "Pro tip".\\
+
+That being said, the style guide for Python, the PEP8, puts an emphasis on concurrent \emph{single-line} commenting.\\
+
+PEP8 suggested \emph{multi-line} comments:\\
+\#\\
+\# This is\\
+\# a\\
+\# Multi-line comment\\
+\#\\
+
+"Pro tip" \emph{multi-line} comments:\\
+{'}{'}{'}\\
+This is a Multi-line comment\\
+{'}{'}{'}\\
+
+
 The use and format of comments will take many forms depending on requirements set by coworkers, professors, managers, and the like. One should be ready to alter their format at the drop of a hat.\\
-The commenting formats used herein will be both descriptive and documentation. \\
+
+The commenting formats used herein will be both descriptive and documentation. With an official release, I will likely adhere to PEP8, with the exception of the "pro tip". \\
+
  It should be noted that I will strive to offer comments to any and all code snippets I include to foster this notion. \\
 
+\section{Math Operations, Pi-thon}
+\label{math_operations}
+
+A few words on Discrete:\\
+Putting a definition to Discrete numbers is important for the coming discussion and is a central theme to the logic behind the friendly integer. \\
+
+If some one where to ask a normal humanbeing how many numbers are between 1 and 5, they would likely say three, '2,3,4'. Where as a Mathematician or Engineer would be wont to say infinity. Both are simultaneously true. Discrete refers to 'countable' events, items, positions, whatever else you can conceive. From the perspective of Discrete counting, there are only three numbers between 1 and 5. \\
+On the other hand, continuous numbers, are just that––continuous. Between 1 and 2, there is 1.5, or 1 and 1/2. There is also 1.25, 1.75, 1.99, 1.0000000000000001, and far too many more for me to reasonably list in linear time. These numbers are continuous and belong to the world of fractions, both positive and negative infinities. \\
+
+The int is a good data type to start with regarding numbers, a numeric. Good, because it is simple and doesn't quite jump into the extra baggage associated with floats, doubles, and the like (more on them later).\\
+
+
+\subsection{General Numeric Operations}
+\label{sub:general_numeric_operations}
+
+As noted above, here are some more general numeric operations with 'interpreter' examples.\\
+
+{>}{>}{>} 6 + 6\\
+12\\
+{>}{>}{>} 32-9*2\\
+14\\
+{>}{>}{>} (32-9*2)/7\\
+2.0 
+
+More examples of Python3's use of the Order of Operations and use of Division. Note the use of Division (/) and how the division of the ints resulted in a float. This is a stark contrast from most programming languages and needs must be addressed.\\
+
+As addressed before, should you want the operation to return an 'int', not a float, it can be converted after the Order of Operations has executed with the int(x) operation.\\
+
+{>}{>}{>} int((32-9*2)/7)\\
+2\\
+
+/, referred to as \emph{classic division}, will always return a float. 
+{>}{>}{>} 21/5\\
+4.2\\
+{>}{>}{>} 36/6\\
+6.0\\
+
+//, \emph{floor division} will perform the similar (not the same) operations as \emph{classic division} and return the answer as an int. \\
+
+{>}{>}{>}21//5\\
+4\\
+{>}{>}{>}(32-9*2)//7\\
+2\\
+{>}{>}{>} 36//6\\
+6\\
+{>}{>}{>} 21//5\\
+4\\
+
+\%, \emph{Modulus Division} Will also perform division, after a fashion. Instead of keeping the whole number and disregarding the fractional part, only the fractional part is returned––as its \emph{floor value}. This sees significant use in certain computations, such as rendering. \\
+\# \emph{Classic Division}\\
+{>}{>}{>}87/9\\
+9.666666666\\
+\# \emph{Modulus Divison}\\
+{>}{>}{>} 87\%9\\
+6\\
+{>}{>}{>} 13\%4\\
+1\\
+{>}{>}{>} 36\%6\\
+0\\
+{>}{>}{>} 120\%7\\
+1\\
+
+
+\textbf{Regarding floor values}:\\
+\textbf{Notice} how the outputs, of the \emph{Modulus} operations yield a conclusive and not so fractional answer? Take a look at \ensuremath{87\%9}:\\
+Shouldn't this be returned as 666666(ad infinum)? While the remainder is taken as \textbf{x} many beyond the whole number result from \emph{Classic Division}, this does not take into consideration the fractional parts beyond the tenths place. Go ahead and try the following in your interpreter:\\
+
+\# More \emph{Modulus Divison}\\
+{>}{>}{>} 86\%9\\
+{>}{>}{>} 87\%9\\
+{>}{>}{>} 88\%9\\
+{>}{>}{>} 89\%9\\
+{>}{>}{>} 90\%9\\
+{>}{>}{>} 91\%9\\
+{>}{>}{>} 8\%9\\
+
+Notice anything interesting? The number gets larger and larger until the modulus equals 9––at which point––the modulus is 0. 90 modulus 9 yields 0 as 90 / 9 is 10, no remainder. 91 modulus 9 is 1, as the remainder is 1. That is to say that 91 is greater than 90 by 1, ergo the remainder is 1. \\
+
+Now, the enigma here is 8 modulus 9. We get 8 as our remainder. It is 8 greater than 0. 0 mod 9 is 0. Some more experimentation might be in order....\\
+
+\# Once more, with feeling!\\
+
+{>}{>}{>} 9\%9\\
+{>}{>}{>} 0\%9\\
+{>}{>}{>} 1\%9\\
+{>}{>}{>} 2\%9\\
+{>}{>}{>} 3\%9\\
+{>}{>}{>} 4\%9\\
+{>}{>}{>} 5\%9\\
+{>}{>}{>} 6\%9\\
+{>}{>}{>} 7\%9\\
+{>}{>}{>} 8\%9\\
+{>}{>}{>} -1\%9\\
+{>}{>}{>} -2\%9\\
+{>}{>}{>} -9\%9\\
+{>}{>}{>} -10\%9\\
+{>}{>}{>} 10 \%9\\
+
+Isn't this interesting? Approaching negative infinity, a different trend arises, one that mirrors the one approaching positive infinity. 1\%9 is 1, -1\%9 is 8. As is -10\%9. -11 mod 9 is 7. The remainder is yet a positive value as it counts the absolute value between whole number divisions.\\
+
+Notice that the modulus increases from -9\%9 until 0\%9? Then this trend continues upward from 1 mod 9 \= 1, with the modulus increasing until 9\%9 which is then 0 with 10 mod 9 being 1.
+
+\section{Numerical Operations}
+\label{numerical_operations}
+
+
+%Table Example
+
+\begin{table}[h!]
+
+  \centering
+  \caption{Operations of the Numeric types.}
+  \label{tab:numerical\ operations}
+  \begin{adjustbox}{width=1\textwidth}
+  \begin{tabular}{l|c}
+	\hline
+    Operation & Description\\
+  
+	\hline
+	
+	\ensuremath{p + q}& Sums p and q\\
+    \hline
+    \ensuremath{p - q}& Subtracts q from p\\
+	\hline
+	\ensuremath{p / q}& Divides p by q\\
+	\hline
+	\ensuremath{p * q}& Multiplies p by q\\
+	\hline
+	\ensuremath{p // q}& Floor divides p by q\\
+	\hline
+	\ensuremath{p \% q}& Modulus of p and q\\
+	\hline
+	\ensuremath{abs(p)}& The magnitude or absolute value of p\\
+	\hline
+	\ensuremath{-p}& Negation of p\\
+	\hline
+	\ensuremath{+p}& p\\
+	\hline
+	\ensuremath{int(p)}& Converts p into an int\\
+	\hline
+	\ensuremath{p + q}& Converts p into a float\\
+	\hline
+	\ensuremath{complex(r, i)}& Converts a real number, \emph{r},\\
+	%\hline
+								&
+	with an imaginary part, \emph{i}. By default \emph{i} is 0  \\
+	\hline
+	\ensuremath{c.conjugate()}& 
+Converts a complex number, \emph{c},\\
+								&
+	into the conjugate of \emph{c}\\
+	\hline
+	\ensuremath{divmod(p,q)}&
+The pair of operations,\ensuremath{(p//q,p\%q)} \\
+								&
+p floor division y q and p modulus by q\\
+	\hline
+\ensuremath{pow(p,q)}	&
+p raised to the power of q\\
+\ensuremath{p**q}		&
+						\\
+\hline
+
+	
+	
+  \end{tabular}
+  \end{adjustbox}
+\end{table}
+%\caption{A caption after the table}
+
+
+\section{String Operations}
+\label{string_operations}
 
 
 
+
+
+\section{The String Class}
+\label{the_string_class}
+
+\begin{table}[h!]
+
+  \centering
+  \caption{Operations of the String types.}
+  \label{tab:String\ operations}
+  \begin{adjustbox}{width=1\textwidth}
+  \begin{tabular}{l|c}
+	\hline
+    Operation & Description\\
+  
+	\hline
+	
+	\ensuremath{p + q}& Sums p and q\\
+    \hline
+    \ensuremath{p - q}& Subtracts q from p\\
+	\hline
+	\ensuremath{p / q}& Divides p by q\\
+	\hline
+	\ensuremath{p * q}& Multiplies p by q\\
+	\hline
+	\ensuremath{p // q}& Floor divides p by q\\
+	\hline
+	\ensuremath{p \% q}& Modulus of p and q\\
+	\hline
+	\ensuremath{abs(p)}& The magnitude or absolute value of p\\
+	\hline
+	\ensuremath{-p}& Negation of p\\
+	\hline
+	\ensuremath{+p}& p\\
+	\hline
+	\ensuremath{int(p)}& Converts p into an int\\
+	\hline
+	\ensuremath{p + q}& Converts p into a float\\
+	\hline
+	\ensuremath{complex(r, i)}& Converts a real number, \emph{r},\\
+	%\hline
+								&
+	with an imaginary part, \emph{i}. By default \emph{i} is 0  \\
+	\hline
+	\ensuremath{c.conjugate()}& 
+Converts a complex number, \emph{c},\\
+								&
+	into the conjugate of \emph{c}\\
+	\hline
+	\ensuremath{divmod(p,q)}&
+The pair of operations,\ensuremath{(p//q,p\%q)} \\
+								&
+p floor division y q and p modulus by q\\
+	\hline
+\ensuremath{pow(p,q)}	&
+p raised to the power of q\\
+\ensuremath{p**q}		&
+						\\
+\hline
+
+	
+	
+  \end{tabular}
+  \end{adjustbox}
+\end{table}
+
+\section{\textbf{The Philosopher's Stone}\\
+And then there were Objects}
+\label{object_oriented_programming_introduction}
+\section{\textbf{A Wolf in Sheep's Clothing}\\
+ Introduction to Polymorphism}
+ \label{polymorphism}
 
 %----------------------------------------------------------------------------------------
 %	CHAPTER TWO
@@ -235,7 +548,10 @@ The commenting formats used herein will be both descriptive and documentation. \
 
 \chapter{Hansel and Gretel \\
 \large Defeating the Witch}
-
+\section{\textbf{Enter the Function}}
+\label{functions_introduction}
+\section{\textbf{Sanctum Sempra}}
+\label{funcitons_methods}
 
 
 %----------------------------------------------------------------------------------------
@@ -245,7 +561,102 @@ The commenting formats used herein will be both descriptive and documentation. \
 \chapter{Rupunzel \\
 \large Gordian's Knot}
 
+\section{\textbf{\ensuremath{\lambda} Calculus}}
+\label{lambda_calculus}
 
+% Example using Blackboard bold outside of math mode
+%\ensuremath{\mathbbold{R}}\\
+
+
+	
+\emph{\ensuremath{\lambda}p.p+1}\\
+
+\textbf{Within} the \emph{Lambda Calculus}, the above is a valid definition of the variable p increment function. But what are the implications for programming? Below, we assign something to \emph{p}, lets us say we make 41 the argument for the function. Also, note what's missing? There is no name to the proper Lambda function defined above. Lambda functions do not possess names as they are anonymous operations.\\
+
+
+\emph{(\ensuremath{\lambda}p.p+1)41}\\
+
+This is similar to: \ensuremath{\lambda}p.p+1, if it were a function with 41 being an argument passed to the function. As a whole, this is known as a \emph{Lambda Expression}.\\
+
+\[(\lambda p.p+1)41 \Rightarrow 41+1 \Rightarrow 42.\]\\
+
+
+
+\emph{Lambda Calculus} is a very relevant topic for both Computer Scientists and programmers. This hearkens back to the time of Computer Science in it's infancy and maintains it's importance to this day. The Lambda Calculus was originally gifted to us by Alonzo Church \footnote{Church, A(1932). "A set of postulates for the foundation of logic". \emph{Annals of Mathematics}. Series 2. \textbf{33} (2): 346–366. JSTOR 1968337. doi:10.2307/1968337} while he furthered his research into the \emph{foundations of Mathematics}. At later dates, he also gave us \emph{Untyped Lambda Calculus}\footnote{ Church, A. (1936). "An unsolvable problem of elementary number theory". American Journal of Mathematics. 58 (2): 345–363. JSTOR 2371045. doi:10.2307/2371045.} for computations and \emph{Simply Typed Lambda Calculus} that was published in the \emph{Journal of Symbolic Logic}\footnote{Church, A. (1940). "A Formulation of the Simple Theory of Types". Journal of Symbolic Logic. 5 (2): 56–68. JSTOR 2266170. doi:10.2307/2266170.}.\\
+
+The Lambda Calculus utilizes distinct expressions, rules, and operations unique to itself. Among these operations exist rules that allow the manipulation of variables and expressions.\\
+
+These expressions are known as \emph{Lambda Terms} and they are defined as valid terms if they follow proper syntax, not unlike any other programming language. \\
+There are three guidelines that determine whether something is or is not a valid \emph{Lambda Term}:\\
+
+1. Variables, such as q, are valid Lambda terms. \\
+2. if p is a lambda term, and q is a variable, then (\ensuremath{\lambda}q.p) is a Lambda term (here it is known as a \emph{Lambda abstraction})\\
+3. if p and j are lambda terms, then (pj) is a lambda term (known as an \emph{application})\\
+
+If something does not follow these rules, then it is simply not a lambda term. 
+
+\subsection{\textbf{The Syntax of Lambda Calculus}}
+\label{sub:the_syntax_of_lambda_calculus}
+
+
+
+
+
+\textbf{The} core syntax of Lambda Expressions:\\
+
+\textbf{I. All variables are lambda expressions.}\\
+\textbf{II. If P and Q are lambda expressions}
+ \ensuremath{\Rightarrow}
+\textbf{so are 1, 2, and 3 below.}\\
+\textbf{1.(P)}\\
+\textbf{2.\ensuremath{\lambda}zy.P}\\
+\textbf{3. PQ}\\
+
+
+\textbf{1.} Clearly states that ()(parenthesis) are legal nesting syntax, this is nifty because this keeps our notation consistent without breaking any rules.\\
+\textbf{2.} This is a not so formal definition for an \emph{abstraction}: function with a parameter of zy with a body of \textbf{P}.\\
+\textbf{3.} This is a Lambda \emph{applicaiton}: We perform \textbf{P} upon \textbf{Q}\\
+
+\section{\textbf{Lambda Functions in Python}}
+\label{lambda_functions_in_python}
+
+%https://stackoverflow.com/questions/890128/why-are-python-lambdas-useful
+
+Lambda expressions in Python are generally of the form:\\
+% TODO
+% This is brokem and fills page, need to fix
+% I think this is fixed
+
+\begin{myverb}
+	
+lambda_expr::= "lambda" [param_list]: expression
+
+\end{myverb}
+
+Expressions defined in this way have the behaviour of classically defined functions with returns.\\
+Like so:\\
+def <lambda>(args):\\
+	return expression\\
+Similarities in \emph{function}:\\ 
+
+\begin{myverb}
+	
+lambda_expr::= lambda q: q+3
+
+\end{myverb}
+
+Or Literally in the interpreter: \\
+	
+{>}{>}{>} l = lambda q: q+3\\
+{>}{>}{>}l(7)\\
+10\\
+
+Which is the same expected behaviour of:\\
+{>}{>}{>}p=function(i):\\
+...			return i + 3\\
+...\\
+{>}{>}{>}p(7)\\
+10\\
 
 
 %----------------------------------------------------------------------------------------
@@ -254,7 +665,29 @@ The commenting formats used herein will be both descriptive and documentation. \
 Illiad's Tales of Troy\\
  The Manticore and other Abhors}
  
-This is the customary chapter whence we face the problems of Computer Science and bear witness to the imaginative genious of Computer Scientists and Mathematicians, the unknown, the unsolved, and the unsolvable. 
+This is the customary section whence we face the problems of Computer Science and bear witness to the imaginative genious of Computer Scientists and Mathematicians, the unknown, the unsolved, and the unsolvable. 
+
+\chapter{%
+ Regarding Discrete Mathematics
+}
+\textbf{%
+\large This} chapter serves as both a soft introduction and refresher to some of the relevant Discrete Mathematics in programming. It is my hope, that I am capable of communicating some of these important concepts for any level of programmer. 
+
+\section{Counting}
+\label{counting}
+\subsection{Probability}
+\label{sub:probability}
+\section{Sets}
+\section{Summation}
+\section{Matrices}
+\section{Graphs}
+\label{graphs}
+\chapter{Problems in Computer Science}
+\section{Notable Solved Problems}
+\label{notable_solved_problems}
+\subsection{Detecting a Loop in a Linked List}
+\label{detecting_a_loop_in_a_linked_list}
+\chapter{Intractable Problems}
 %----------------------------------------------------------------------------------------
 \part{%
 GFDL\\
@@ -400,4 +833,26 @@ An MMC is "eligible for relicensing" if it is licensed under this License, and i
 
 The operator of an MMC Site may republish an MMC contained in the site under CC-BY-SA on the same site at any time before August 1, 2009, provided the MMC is eligible for relicensing.
 
+
+\chapter{Citations}
+
+%Lambda Calculus
+ Turing, A. M. (December 1937). "Computability and \ensuremath{\lambda}-Definability". \emph{The Journal of Symbolic Logic}. \textbf{2} (4): 153–163. JSTOR 2268280. doi:10.2307/2268280. \textsuperscript{1}\\
+ 
+  Church, A. (1932). "A set of postulates for the foundation of logic". \emph{Annals of Mathematics}. Series 2. \textbf{33} (2): 346–366. JSTOR 1968337. doi:10.2307/1968337\textsuperscript{2}
+  
+ 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+

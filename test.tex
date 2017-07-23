@@ -1,0 +1,16 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{adjustbox}
+\usepackage{fancyvrb}
+\newenvironment{myverb}{%
+ \VerbatimEnvironment
+ \begin{adjustbox}{max width=\linewidth}
+ \begin{BVerbatim}
+  }{
+  \end{BVerbatim}
+ \end{adjustbox}
+}
+\begin{document}
+\begin{myverb}
+a very long line a very long line a very long line a very long line a very long line a very long line a very long line a very long line a very long line a very long line a very long line
+\end{myverb}
+\end{document}

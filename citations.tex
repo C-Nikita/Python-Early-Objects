@@ -1,0 +1,44 @@
+\documentclass[oneside,12pt]{memoir} % Font size
+\usepackage{adjustbox}
+\usepackage{fancyvrb}
+\newcommand{\bbfamily}{\fontencoding{U}\fontfamily{bbold}\selectfont}
+\DeclareMathAlphabet{\mathbbold}{U}{bbold}{m}{n}
+
+\newenvironment{myverb}{%
+ \VerbatimEnvironment
+ \begin{adjustbox}{max width=\linewidth}
+ \begin{BVerbatim}
+  }{
+  \end{BVerbatim}
+ \end{adjustbox}
+}
+
+\input{structure.tex} % Include the file that specifies the document structure and layout
+
+\title{%
+	Python:\\
+	Early Objects\\
+	A GNU Approach} % Book title
+%\subtitle{A GNU Approach}
+	
+\author{Chris Trenary} % Author
+\newcommand{\edition}{Manuscript} % Book edition
+%\maketitles
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	HEADER AND FOOTER FORMATS
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\chapter{Citations}
+
+%Lambda Calculus
+ Turing, A. M. (December 1937). "Computability and \ensuremath{\lambda}-Definability". \emph{The Journal of Symbolic Logic}. \textbf{2} (4): 153–163. JSTOR 2268280. doi:10.2307/2268280. \textsuperscript{1}\\
+ 
+  Church, A. (1932). "A set of postulates for the foundation of logic". \emph{Annals of Mathematics}. Series 2. \textbf{33} (2): 346–366. JSTOR 1968337. doi:10.2307/1968337\textsuperscript{2}
+  
+  Church, A. (1940). "A Formulation of the Simple Theory of Types". Journal of Symbolic Logic. 5 (2): 56–68. JSTOR 2266170. doi:10.2307/2266170.
+  
+ 
+\end{document}
